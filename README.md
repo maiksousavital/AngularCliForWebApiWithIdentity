@@ -1,3 +1,6 @@
+# Important
+This project works together with the one in the repository WebApiWithIdentity
+
 # AngularClient
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.2.
