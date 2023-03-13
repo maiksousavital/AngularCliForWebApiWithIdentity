@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { IResetPassword } from 'src/app/types/ResetPassword';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,13 +18,14 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notification: NotificationService
   ) {}
 
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup({
-      // email: new FormControl('', [Validators.required]),
-      // token: new FormControl('', [Validators.required]),
+      email: new FormControl(this.email, [Validators.required]),
+      token: new FormControl(this.token, [Validators.required]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
     });
@@ -31,9 +33,13 @@ export class ResetPasswordComponent implements OnInit {
 
   resetPassword(resetPassword: IResetPassword) {
     this.authService.resetPassword(resetPassword).subscribe({
-      next: (res: any) => {},
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
+      next: (res: any) => {
+        this.notification.showSuccess(res.message,'Reset Password')
+      },
+      error: (err: HttpErrorResponse) => {
+        err.error.errors.forEach((element: any) => {
+          this.notification.showError(element.description, 'Reset Password');
+        });
       },
     });
   }

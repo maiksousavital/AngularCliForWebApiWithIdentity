@@ -24,18 +24,17 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.forgotPasswordForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
-      clientUrl: new FormControl(window.location.href.replace(this.router.url, '/ResetPassword'), [Validators.required]),
+      clientUrl: new FormControl(window.location.href.replace(this.router.url, '/reset-password'), [Validators.required]),
     });
   }
 
   forgotPassword(forgotPassword: IForgotPassword) {
     this.authService.forgotPassword(forgotPassword).subscribe({
       next: (res: any) => {
-        this.notification.showSuccess(res.message, 'Forgot Password');
-        console.log(res);
+        this.notification.showSuccess(res.message, 'Forgot Password');               
       },
       error: (error: HttpErrorResponse) => {
-        this.notification.showInfo(error.message, 'Forgot Password');
+        this.notification.showInfo(error.message, 'Forgot Password');        
       },
     });
   }
