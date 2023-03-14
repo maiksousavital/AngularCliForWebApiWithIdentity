@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { BASE_URL } from '../constants/constants'; 
+import { BASE_URL } from '../constants/constants';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../types/User';
 import { ILoginRequest } from '../types/LoginRequest';
@@ -8,11 +8,15 @@ import { IForgotPassword } from '../types/ForgotPassword';
 import { ILoginResponse } from '../types/LoginResponse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  isLoggedIn = false;
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  isAuthenticated() {
+    return this.isLoggedIn;
+  }
 
   public register(user: IUser): Observable<any> {
     return this.http.post<any>(BASE_URL + 'Account/Register', user);
@@ -23,11 +27,16 @@ export class AuthService {
   }
 
   public forgotPassword(forgotPassword: IForgotPassword): Observable<any> {
-    return this.http.post<ILoginResponse>(BASE_URL + 'Account/ForgotPassword', forgotPassword);
+    return this.http.post<ILoginResponse>(
+      BASE_URL + 'Account/ForgotPassword',
+      forgotPassword
+    );
   }
 
   public resetPassword(resetPassword: IForgotPassword): Observable<any> {
-    return this.http.post<any>(BASE_URL + 'Account/ResetPassword', resetPassword);
+    return this.http.post<any>(
+      BASE_URL + 'Account/ResetPassword',
+      resetPassword
+    );
   }
-
 }
