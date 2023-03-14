@@ -37,8 +37,8 @@ export class ResetPasswordComponent implements OnInit {
         this.notification.showSuccess(res.message,'Reset Password')
       },
       error: (err: HttpErrorResponse) => {
-        err.error.errors.forEach((element: any) => {
-          this.notification.showError(element.description, 'Reset Password');
+        err.error.errors.forEach((message: any) => {
+          this.notification.showError(message, 'Reset Password');
         });
       },
     });
