@@ -30,7 +30,7 @@ name:string = ''
       .login(loginRequest)
       .pipe(first())
       .subscribe({
-        next: (res:ILoginResponse) => {  
+        next: (res:ILoginResponse) => {            
           localStorage.setItem('token', res.Token);       
           this.router.navigateByUrl(res.ReturnUrl);
         },
@@ -41,4 +41,6 @@ name:string = ''
         },
       });
   }
+
+  
 }

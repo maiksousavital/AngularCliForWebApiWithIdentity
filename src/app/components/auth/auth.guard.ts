@@ -25,25 +25,20 @@ export class AuthGuard implements CanActivate {
   //   | UrlTree {
   //   return true;
   // }
+
   // canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
   //   return this.authService
   //     .isAuthenticated()
   //     .pipe(
-  //       map((isAuthenticated) =>
-  //       isAuthenticated ? true : createUrlTreeFromSnapshot(next, ['/', 'login'])
+  //       map((isLoggedIn) =>
+  //       isLoggedIn ? true : createUrlTreeFromSnapshot(next, ['/', 'login'])
   //       )
   //     );
   // }
-  // canActivate(
-  //   next: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ): boolean {
-  //   let isLoggedIn = this.authService.isAuthenticated();
-  //   if (isLoggedIn) {
-  //     return true;
-  //   } else {
-  //     this.router.navigate(['/contact']);
-  //   }
-  //   return false;
-  // }
+
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return (
+      this.authService.isLoggedIn || this.router.navigate(['/login'])
+    );
+  }
 }

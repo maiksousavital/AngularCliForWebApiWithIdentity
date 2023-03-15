@@ -11,12 +11,13 @@ import { ILoginResponse } from '../types/LoginResponse';
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedIn = false;
+  isLoggedIn:boolean = false;
+  
   constructor(private http: HttpClient) {}
 
-  isAuthenticated() {
-    return this.isLoggedIn;
-  }
+  // isAuthenticated():boolean {
+  //   return this.isLoggedIn;
+  // }
 
   public register(user: IUser): Observable<any> {
     return this.http.post<any>(BASE_URL + 'Account/Register', user);
